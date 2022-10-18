@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/funcoes.js"></script>
+    <link rel="stylesheet" href="grandvinum-home.html">
+    <link rel="stylesheet" href="./css/grandvinum-cadastro.css">
+    <link rel="Logo icon" href="./assets/garrafa-de-vinho.png">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div class="background">
+        <div class="header">
+            <div class="container">
+                <img src="./assets/logo2.png" alt="">
+                <div class="navbar">
+                    <ul class="textos">
+                        <li><a href="grandvinum-HOME.html">Home</a></li>
+                        <li><a href="grandvinum-NossosServicos.html">Nossos Serviços</a></li>
+                        <li><a href="grandvinum-login.html">Entrar</a></li>
+                        <li><a href="grandvinum-cadastro.html">Cadastre-se</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- BANNER -->
+        <div class="banner">
+            <div class="container">
+                <div class="caixa-formulario">
+                    <h3>Junte-se a nós</h3>
+                    <h5>Ao se cadastrar à Soluções Grand Vinum você poderá saber mais sobre nossos serviços e preços.
+                    </h5>
+
+                    <div class="caixa-formulario-input">
+                        <div class="campo">
+                            <label for="in_nomeEmpresa">Nome da Empresa
+                                <input type="text" placeholder="Digite o nome da empresa" id="in_nomeEmpresa">
+                            </label>
+                        </div>
+
+
+                        <div class="campo1">
+                            <label for="in_cnpjEmpresa">CNPJ da Empresa
+                                <input type="text" placeholder="Digite o CNPJ da empresa" id="in_cnpjEmpresa">
+                            </label>
+
+                            <label for="in_celularTelefone">Celular / Telefone
+                                <input type="text" placeholder="Digite o telefone" id="in_celularTelefone">
+                            </label>
+                        </div>
+
+
+                        <div class="campo">
+                            <label for="in_email">Email
+                                <input type="text" placeholder="Digite o email" id="in_email">
+                            </label>
+                        </div>
+
+
+                        <div class="campo1">
+                            <label for="in_senha">Criar uma senha
+                                <input type="password" placeholder="Digite sua senha" id="in_senha">
+                            </label>
+
+                            <label for="in_confSenha"> Confirmar senha
+                                <input type="password" placeholder="Confirme sua senha" id="in_confSenha">
+                            </label>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- CHECKBOX -->
+                    <div class="check-botao">
+                        <div class="check">
+                            <input type="checkbox" id="chk_1">
+                            <p>Concordo com todos os Termos de Política e Privacidade.</p>
+                        </div>
+
+                        <div class="check">
+                            <input type="checkbox" id="chk_2">
+                            <p>Desejo receber notificações sobre os serviços no email.</p>
+                        </div>
+
+                        <div class="botao">
+                            <button onclick="cadastrar()">Cadastre-se</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card_erro" id="cardErro">
+                    <span id="mensagem_erro"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="container">
+                <img src="./assets/logo2.png" alt="" id="loguinho">
+                <div class="links">
+                    <ul>
+                        <h4>LINKS</h4>
+                        <li><a href="">Termos de Serviço</a></li>
+                        <li><a href="">FAQ - Perguntas <br> Frequentes</a></li>
+                        <li><a href="grandvinum-login.html">Entrar</a></li>
+                        <li><a href="grandvinum-NossosServicos.html">Nossos Serviços</a></li>
+                    </ul>
+
+                    <div class="media">
+                        <div id="redes">
+                            <h4>REDES SOCIAIS</h4>
+                            <img src="./img/instagramWhite.png" alt="">
+                            <img src="./img/facebookWhite.png" alt="">
+                            <img src="./img/whatsappWhite.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="copyright">
+                <p>Copyright &copy; 2022 Soluções Grand Vinum - Todos os direitos reservados - Desenvolvido por
+                    GrandVinum</p>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
+<script>
+    function cadastrar() {
+        aguardar();
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeEmpresa = in_nomeEmpresa.value;
+        var cnpj = in_cnpjEmpresa.value
+        var celTelefone = in_celularTelefone.value
+        var emailVar = in_email.value;
+        var senhaVar = in_senha.value;
+        var confirmacaoSenhaVar = in_confSenha.value;
+
+        if (nomeEmpresa == "" || cnpj == "" || celTelefone == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeEmpresa,
+                cnpjServer: cpnj,
+                celTelefoneServer: celTelefone, 
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                cardErro.style.display = "block";
+
+                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                setTimeout(() => {
+                    window.location = "grandvinum-Login.html";
+                }, "2000")
+
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
+</script>
